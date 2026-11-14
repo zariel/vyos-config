@@ -13,7 +13,8 @@ set service dns dynamic name cloudflare-ipv4 zone 'cbannister.casa'
 set service dns dynamic name cloudflare-ipv4 ttl '300'
 
 # NTP server
-set service ntp listen-address 10.254.254.1
+# NTP compatibility for the old device address is handled by destination NAT.
+set service ntp listen-address 10.5.0.10
 delete service ntp allow-client
 set service ntp allow-client address '127.0.0.0/8'
 set service ntp allow-client address '10.0.0.0/8'
@@ -24,7 +25,6 @@ set service ntp server 0.uk.pool.ntp.org
 set service ntp server 1.uk.pool.ntp.org
 set service ntp server 2.uk.pool.ntp.org
 set service ntp server 3.uk.pool.ntp.org
-set service ntp server listen-address 10.254.254.1
 
 # SSH server
 set service ssh disable-password-authentication
@@ -32,7 +32,8 @@ set service ssh port '22'
 
 # TFTP server
 set service tftp-server directory '/config/tftpboot'
-set service tftp-server listen-address 10.0.0.1
+set service tftp-server listen-address 10.5.0.9
+set service tftp-server listen-address 10.1.1.1
 set service tftp-server listen-address 10.254.254.1
 
 # mDNS Repeater

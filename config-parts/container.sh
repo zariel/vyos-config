@@ -2,11 +2,11 @@
 
 # Container networks
 set container network containers description 'Network for VyOS containers'
-set container network containers prefix '10.5.0.0/24'
+set container network containers prefix '10.5.0.0/26'
 set container network containers prefix 'fd74:f571:d3bd:1005::/64'
 
 # node-exporter
-set container name node-exporter arguments '--web.listen-address=10.254.254.1:9100'
+set container name node-exporter arguments '--web.listen-address=10.5.0.11:9100 --web.listen-address=10.254.254.1:9100'
 set container name node-exporter environment procfs value '/host/proc'
 set container name node-exporter environment rootfs value '/host/rootfs'
 set container name node-exporter environment sysfs value '/host/sys'

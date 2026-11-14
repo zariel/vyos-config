@@ -2,6 +2,10 @@
 
 set interfaces loopback lo address '10.254.254.1/32'
 set interfaces loopback lo description 'loopback identity'
+# Host-owned unicast service addresses; Matchbox .8 remains on the container bridge.
+set interfaces loopback lo address '10.5.0.9/32'
+set interfaces loopback lo address '10.5.0.10/32'
+set interfaces loopback lo address '10.5.0.11/32'
 
 set interfaces ethernet eth0 description 'LAN0'
 set interfaces ethernet eth0 hw-id '08:c0:eb:0f:e4:30'

@@ -16,22 +16,22 @@ set firewall ipv4 name transit-local rule 20 description 'Allow ICMP'
 set firewall ipv4 name transit-local rule 30 action accept
 set firewall ipv4 name transit-local rule 30 description 'Allow NTP'
 set firewall ipv4 name transit-local rule 30 destination port 123
-set firewall ipv4 name transit-local rule 30 destination address 10.254.254.1
+set firewall ipv4 name transit-local rule 30 destination group address-group 'gateway_ntp'
 set firewall ipv4 name transit-local rule 30 protocol udp
 
 set firewall ipv4 name transit-local rule 110 action accept
 set firewall ipv4 name transit-local rule 110 description 'Allow access to node_exporter'
 set firewall ipv4 name transit-local rule 110 destination port 9100
+set firewall ipv4 name transit-local rule 110 destination group address-group 'gateway_metrics'
 set firewall ipv4 name transit-local rule 110 source group network-group POD_NETS
 set firewall ipv4 name transit-local rule 110 protocol tcp
-set firewall ipv4 name transit-local rule 110 destination address '10.254.254.1'
 
 set firewall ipv4 name transit-local rule 120 action accept
 set firewall ipv4 name transit-local rule 120 description 'Allow tftpd access'
 set firewall ipv4 name transit-local rule 120 destination port 69
+set firewall ipv4 name transit-local rule 120 destination group address-group 'gateway_tftp'
 set firewall ipv4 name transit-local rule 120 protocol udp
 set firewall ipv4 name transit-local rule 120 source address 10.254.0.0/24 
-set firewall ipv4 name transit-local rule 120 destination address 10.254.254.1
 
 # From TRANSIT to CONTAINERS
 set firewall ipv4 name transit-containers rule 10 action accept

@@ -101,3 +101,13 @@ set firewall group address-group PROXMOX_HOSTS address '10.1.1.41'
 set firewall group address-group snmp_targets address 10.1.0.10
 # pdu 
 set firewall group address-group snmp_targets address 10.1.0.31
+
+# Dedicated service endpoints plus temporary compatibility listeners.
+set firewall group address-group gateway_ntp address '10.5.0.10'
+set firewall group address-group gateway_ntp address '10.254.254.1'
+set firewall group address-group gateway_tftp address '10.5.0.9'
+set firewall group address-group gateway_tftp address '10.254.254.1'
+set firewall group address-group gateway_tftp address '10.1.1.1'
+set firewall group address-group gateway_metrics address '10.5.0.11'
+set firewall group address-group gateway_metrics address '10.254.254.1'
+set firewall group address-group node_exporter_targets address '10.5.0.11'
