@@ -163,3 +163,10 @@ set firewall ipv4 name transit-lan rule 110 source group network-group POD_NETS
 set firewall ipv4 name transit-lan rule 110 destination address '10.1.0.31'
 set firewall ipv4 name transit-lan rule 110 destination port '443'
 set firewall ipv4 name transit-lan rule 110 protocol tcp
+
+set firewall ipv4 name transit-lan rule 120 action 'accept'
+set firewall ipv4 name transit-lan rule 120 description 'Allow pods to access UniFi Network MCP controller'
+set firewall ipv4 name transit-lan rule 120 source group network-group 'POD_NETS'
+set firewall ipv4 name transit-lan rule 120 destination address '10.1.0.23'
+set firewall ipv4 name transit-lan rule 120 destination port '443'
+set firewall ipv4 name transit-lan rule 120 protocol 'tcp'
