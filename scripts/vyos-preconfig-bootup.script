@@ -15,3 +15,17 @@ if ! patch --dry-run -R "$mdns_script" "$mdns_patch" >/dev/null 2>&1; then
     # configd starts before this hook and preloads configuration modules.
     systemctl restart vyos-configd.service
 fi
+
+# Keep the IPv4 IGMP querier supervised alongside the existing FRR daemons.
+# VyOS 1.4 otherwise renders pimd=no even with protocols pim configured.
+frr_template=/usr/share/vyos/templates/frr/daemons.frr.tmpl
+frr_pimd_patch=/config/scripts/patches/frr-enable-pimd.patch
+if ! patch --dry-run -R "$frr_template" "$frr_pimd_patch" >/dev/null 2>&1; then
+    patch -N "$frr_template" "$frr_pimd_patch" || exit 1
+fi
+
+# VyOS initially renders /etc/frr/daemons and starts FRR before this hook.
+# Reconcile even if the template was already patched but the daemon file is
+# stale. The native handler applies changes during boot, before configuration
+# loading; on a running router it leaves the FRR restart/reload to the operator.
+/usr/libexec/vyos/conf_mode/system_frr.py || exit 1

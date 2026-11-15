@@ -1,0 +1,19 @@
+--- daemons.frr.tmpl
++++ daemons.frr.tmpl
+@@ -3,7 +3,6 @@
+ #
+ # Note: The following FRR-services must be kept disabled because they are replaced by other packages in VyOS:
+ #
+-# pimd   Replaced by package igmpproxy.
+ # nhrpd  Replaced by package opennhrp.
+ # pbrd   Replaced by PBR in nftables.
+ # vrrpd  Replaced by package keepalived.
+@@ -27,7 +26,7 @@
+ ripd=yes
+ ripngd=yes
+ isisd=yes
+-pimd=no
++pimd=yes
+ pim6d=yes
+ ldpd=yes
+ nhrpd=no

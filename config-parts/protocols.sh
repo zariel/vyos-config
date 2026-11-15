@@ -51,10 +51,13 @@ set protocols bgp address-family ipv4-unicast network '10.5.0.0/26'
 set protocols bgp address-family ipv4-unicast network '10.254.254.1/32'
 set protocols bgp address-family ipv4-unicast network '192.168.2.0/24'
 
-# igmp ipv4 multicast, vyos is querier
+# IPv4 IGMP queries are owned by VyOS on trusted and IoT.
+# The boot hook enables supervised pimd startup; see docs/multicast.md.
+set protocols pim interface bond0.20 passive
 set protocols pim interface bond0.20 igmp version 2
 set protocols pim interface bond0.20 igmp query-interval 125
 set protocols pim interface bond0.20 igmp query-max-response-time 10
+set protocols pim interface bond0.40 passive
 set protocols pim interface bond0.40 igmp version 2
 set protocols pim interface bond0.40 igmp query-interval 125
 set protocols pim interface bond0.40 igmp query-max-response-time 10
