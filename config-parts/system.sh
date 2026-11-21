@@ -22,6 +22,9 @@ set system name-server '2606:4700:4700::1111'
 set system sysctl parameter kernel.pty.max value '24000'
 
 set system syslog global facility all level info
+set system syslog global facility local7 level 'debug'
+# The default configuration's protocols debug facility is not used.
+delete system syslog global facility protocols
 set system syslog host 10.45.0.2 facility kern level 'warning'
 set system syslog host 10.45.0.2 protocol 'tcp'
 set system syslog host 10.45.0.2 port '6001'

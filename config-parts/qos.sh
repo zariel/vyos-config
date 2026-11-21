@@ -7,7 +7,7 @@ set qos policy cake WAN-CAKE-EGRESS description 'WAN upload CAKE'
 set qos interface eth3 egress 'WAN-CAKE-EGRESS'
 
 # Download: fair first between LAN destination hosts, then between each host's flows.
-set qos policy cake WAN-CAKE-INGRESS bandwidth '890mbit'
+set qos policy cake WAN-CAKE-INGRESS bandwidth '900mbit'
 set qos policy cake WAN-CAKE-INGRESS flow-isolation dual-dst-host
 set qos policy cake WAN-CAKE-INGRESS flow-isolation nat
 set qos policy cake WAN-CAKE-INGRESS rtt '20'
