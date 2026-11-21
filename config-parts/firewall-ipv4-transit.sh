@@ -9,10 +9,6 @@ set firewall ipv4 name transit-local rule 15 source address '10.254.0.1'
 set firewall ipv4 name transit-local rule 15 destination address '10.254.0.0'
 set firewall ipv4 name transit-local rule 15 destination port '179'
 
-set firewall ipv4 name transit-local rule 20 action accept
-set firewall ipv4 name transit-local rule 20 protocol icmp
-set firewall ipv4 name transit-local rule 20 description 'Allow ICMP'
-
 set firewall ipv4 name transit-local rule 30 action accept
 set firewall ipv4 name transit-local rule 30 description 'Allow NTP'
 set firewall ipv4 name transit-local rule 30 destination port 123
@@ -79,9 +75,6 @@ set firewall ipv4 name transit-wan rule 200 source group network-group DNS_SERVE
 
 # From TRANSIT to TRUSTED
 set firewall ipv4 name transit-trusted default-action drop
-set firewall ipv4 name transit-trusted rule 20 action accept
-set firewall ipv4 name transit-trusted rule 20 description 'Allow ICMP'
-set firewall ipv4 name transit-trusted rule 20 protocol icmp
 set firewall ipv4 name transit-trusted rule 100 action accept
 set firewall ipv4 name transit-trusted rule 100 description 'Allow access to node_exporter and smartctl_exporter'
 set firewall ipv4 name transit-trusted rule 100 source group network-group POD_NETS
@@ -98,15 +91,9 @@ set firewall ipv4 name transit-trusted rule 110 protocol tcp
 
 # From TRANSIT to IOT
 set firewall ipv4 name transit-iot default-action drop
-set firewall ipv4 name transit-iot rule 20 action accept
-set firewall ipv4 name transit-iot rule 20 description 'Allow ICMP'
-set firewall ipv4 name transit-iot rule 20 protocol icmp
 
 # From TRANSIT to SERVERS
 set firewall ipv4 name transit-servers default-action drop
-set firewall ipv4 name transit-servers rule 20 action accept
-set firewall ipv4 name transit-servers rule 20 description 'Allow ICMP'
-set firewall ipv4 name transit-servers rule 20 protocol icmp
 set firewall ipv4 name transit-servers rule 100 action accept
 set firewall ipv4 name transit-servers rule 100 description 'Allow access to node_exporter and smartctl_exporter'
 set firewall ipv4 name transit-servers rule 100 source group network-group POD_NETS
@@ -141,10 +128,6 @@ set firewall ipv4 name transit-servers rule 200 source group network-group POD_N
 set firewall ipv4 name transit-servers rule 200 protocol tcp
 
 # From TRANSIT to LAN
-
-set firewall ipv4 name transit-lan rule 20 action accept
-set firewall ipv4 name transit-lan rule 20 description 'Allow ICMP'
-set firewall ipv4 name transit-lan rule 20 protocol icmp
 
 set firewall ipv4 name transit-lan default-log
 set firewall ipv4 name transit-lan rule 100 action accept

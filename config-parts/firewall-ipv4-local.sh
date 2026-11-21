@@ -74,9 +74,6 @@ set firewall ipv4 name local-trusted rule 10 description 'VRRP to trusted backup
 set firewall ipv4 name local-trusted rule 10 protocol '112'
 set firewall ipv4 name local-trusted rule 10 source address '10.1.2.5'
 set firewall ipv4 name local-trusted rule 10 destination address '10.1.2.6'
-set firewall ipv4 name local-trusted rule 20 action accept
-set firewall ipv4 name local-trusted rule 20 protocol icmp
-set firewall ipv4 name local-trusted rule 20 description 'Allow ICMP'
 set firewall ipv4 name local-trusted rule 100 action 'accept'
 set firewall ipv4 name local-trusted rule 100 description 'Rule: accept_igmp'
 set firewall ipv4 name local-trusted rule 100 protocol '2'
@@ -131,16 +128,6 @@ set firewall ipv4 name local-wan rule 60 description 'WireGuard router socket'
 set firewall ipv4 name local-wan rule 60 protocol 'udp'
 set firewall ipv4 name local-wan rule 60 source port '51820'
 
-icmp_rule=70
-for icmp_type in echo-request echo-reply destination-unreachable time-exceeded parameter-problem; do
-    set firewall ipv4 name local-wan rule "$icmp_rule" action 'accept'
-    set firewall ipv4 name local-wan rule "$icmp_rule" description "ICMP $icmp_type"
-    set firewall ipv4 name local-wan rule "$icmp_rule" protocol 'icmp'
-    set firewall ipv4 name local-wan rule "$icmp_rule" icmp type-name "$icmp_type"
-    icmp_rule=$((icmp_rule + 1))
-done
-unset icmp_rule icmp_type
-
 # From LOCAL to TRANSIT
 set firewall ipv4 name local-transit default-action 'drop'
 set firewall ipv4 name local-transit default-log
@@ -150,8 +137,3 @@ set firewall ipv4 name local-transit rule 15 protocol 'tcp'
 set firewall ipv4 name local-transit rule 15 source address '10.254.0.0'
 set firewall ipv4 name local-transit rule 15 destination address '10.254.0.1'
 set firewall ipv4 name local-transit rule 15 destination port '179'
-
-# Allow ICMP for ping testing
-set firewall ipv4 name local-transit rule 20 action accept
-set firewall ipv4 name local-transit rule 20 protocol icmp
-set firewall ipv4 name local-transit rule 20 description 'Allow ICMP'
