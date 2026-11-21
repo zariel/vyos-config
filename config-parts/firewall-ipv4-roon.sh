@@ -62,3 +62,18 @@ set firewall ipv4 name trusted-roon rule 120 inbound-interface name 'bond0.20'
 set firewall ipv4 name trusted-roon rule 120 protocol 'tcp'
 set firewall ipv4 name trusted-roon rule 120 destination address '10.1.4.10'
 set firewall ipv4 name trusted-roon rule 120 destination port '9330,9332'
+
+set firewall ipv4 name trusted-roon rule 130 action 'accept'
+set firewall ipv4 name trusted-roon rule 130 description 'Roon unicast discovery from Trusted LAN'
+set firewall ipv4 name trusted-roon rule 130 inbound-interface name 'bond0.20'
+set firewall ipv4 name trusted-roon rule 130 protocol 'udp'
+set firewall ipv4 name trusted-roon rule 130 destination address '10.1.4.10'
+set firewall ipv4 name trusted-roon rule 130 destination port '9003'
+
+# Replies to relayed discovery can be unicast to the client's sending socket.
+set firewall ipv4 name roon-trusted rule 120 action 'accept'
+set firewall ipv4 name roon-trusted rule 120 description 'ROCK discovery replies to Trusted LAN'
+set firewall ipv4 name roon-trusted rule 120 outbound-interface name 'bond0.20'
+set firewall ipv4 name roon-trusted rule 120 protocol 'udp'
+set firewall ipv4 name roon-trusted rule 120 source address '10.1.4.10'
+set firewall ipv4 name roon-trusted rule 120 source port '9003'

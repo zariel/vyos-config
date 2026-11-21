@@ -36,3 +36,16 @@ set container name matchbox volume matchbox-data destination '/var/lib/matchbox'
 set container name matchbox volume matchbox-data mode 'rw'
 set container name matchbox volume matchbox-data propagation 'private'
 set container name matchbox volume matchbox-data source '/config/containers/matchbox'
+
+# Roon discovery is restricted to the two VLAN interfaces and UDP 9003.
+set container name roon-discovery description 'Roon discovery between Trusted and ROON'
+set container name roon-discovery image 'docker.io/synfinatic/udp-proxy-2020@sha256:71fb9b54f5a019d40e256490d50c5d25b120965f1332ec97d16a36ff30cda52c'
+set container name roon-discovery allow-host-networks
+set container name roon-discovery cap-add 'net-raw'
+set container name roon-discovery environment INTERFACES value 'bond0.20,bond0.60'
+set container name roon-discovery environment PORTS value '9003'
+set container name roon-discovery restart 'always'
+set container name roon-discovery entrypoint '/bin/sh /usr/local/bin/start-roon-discovery'
+set container name roon-discovery volume startup source '/config/scripts/start-roon-discovery.sh'
+set container name roon-discovery volume startup destination '/usr/local/bin/start-roon-discovery'
+set container name roon-discovery volume startup mode 'ro'

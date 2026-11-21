@@ -48,13 +48,6 @@ set service mdns repeater allow-service '_printer._tcp.local'
 set service mdns repeater allow-service '_companion-link._tcp.local'
 set service mdns repeater allow-service '_meshcop._udp.local'
 
-# TODO: enable when roon is in IOT
-# UDP Broadcast-Relay
-# set service broadcast-relay id 1 description 'ROON'
-# set service broadcast-relay id 1 interface 'bond0.20'
-# set service broadcast-relay id 1 interface 'bond0.40'
-# set service broadcast-relay id 1 port '9003'
-
 # set service router-advert interface bond0.20 default-preference 'high'
 # set service router-advert interface bond0.40 default-preference 'high'
 
