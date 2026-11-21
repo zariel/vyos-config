@@ -30,6 +30,7 @@ set protocols bgp system-as '65000'
 set protocols bgp parameters router-id '10.254.254.1'
 set protocols bgp parameters log-neighbor-changes
 set protocols bgp parameters network-import-check
+set protocols bgp parameters ebgp-requires-policy
 
 set protocols bgp neighbor 10.254.0.1 description 'ICX7250 core'
 set protocols bgp neighbor 10.254.0.1 remote-as '65001'
