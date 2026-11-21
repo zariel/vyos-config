@@ -206,6 +206,8 @@ set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-ma
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping mrx740 mac-address '50:1e:2d:3e:39:48'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping coreelec ip-address '10.1.2.54'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping coreelec mac-address '90:0e:b3:fd:a1:46'
+set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping bc250-lounge ip-address '10.1.2.57'
+set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping bc250-lounge mac-address 'a8:a1:59:b2:81:90'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ufc-dock ip-address '10.1.2.55'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ufc-dock mac-address '80:b5:4e:8f:29:03'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ufc-remote ip-address '10.1.2.56'
