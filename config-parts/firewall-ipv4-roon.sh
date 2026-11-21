@@ -17,6 +17,13 @@ set firewall ipv4 name roon-local rule 60 protocol 'udp'
 set firewall ipv4 name roon-local rule 60 destination address '10.5.0.10'
 set firewall ipv4 name roon-local rule 60 destination port '123'
 
+set firewall ipv4 name roon-local rule 100 action 'accept'
+set firewall ipv4 name roon-local rule 100 description 'IGMP membership reports'
+set firewall ipv4 name roon-local rule 100 protocol 'igmp'
+set firewall ipv4 name local-roon rule 100 action 'accept'
+set firewall ipv4 name local-roon rule 100 description 'IGMP membership queries'
+set firewall ipv4 name local-roon rule 100 protocol 'igmp'
+
 set firewall ipv4 name roon-transit rule 10 action 'accept'
 set firewall ipv4 name roon-transit rule 10 description 'Internal DNS'
 set firewall ipv4 name roon-transit rule 10 protocol 'tcp_udp'
