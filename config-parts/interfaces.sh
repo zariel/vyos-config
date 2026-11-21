@@ -17,6 +17,7 @@ set interfaces ethernet eth0 offload sg
 set interfaces ethernet eth0 offload tso
 set interfaces ethernet eth0 ring-buffer rx '8192'
 set interfaces ethernet eth0 ring-buffer tx '8192'
+set interfaces ethernet eth0 disable-flow-control
 
 delete interfaces ethernet eth0 address
 
@@ -30,6 +31,7 @@ set interfaces ethernet eth1 offload sg
 set interfaces ethernet eth1 offload tso
 set interfaces ethernet eth1 ring-buffer rx '8192'
 set interfaces ethernet eth1 ring-buffer tx '8192'
+set interfaces ethernet eth1 disable-flow-control
 
 delete interfaces ethernet eth1 address
 
