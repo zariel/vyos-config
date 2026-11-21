@@ -1,0 +1,57 @@
+#!/bin/vbash
+
+set firewall ipv4 name roon-local rule 50 action 'accept'
+set firewall ipv4 name roon-local rule 50 description 'DHCP requests'
+set firewall ipv4 name roon-local rule 50 protocol 'udp'
+set firewall ipv4 name roon-local rule 50 source port '68'
+set firewall ipv4 name roon-local rule 50 destination port '67'
+set firewall ipv4 name local-roon rule 50 action 'accept'
+set firewall ipv4 name local-roon rule 50 description 'DHCP replies'
+set firewall ipv4 name local-roon rule 50 protocol 'udp'
+set firewall ipv4 name local-roon rule 50 source port '67'
+set firewall ipv4 name local-roon rule 50 destination port '68'
+
+set firewall ipv4 name roon-local rule 60 action 'accept'
+set firewall ipv4 name roon-local rule 60 description 'Gateway NTP'
+set firewall ipv4 name roon-local rule 60 protocol 'udp'
+set firewall ipv4 name roon-local rule 60 destination address '10.5.0.10'
+set firewall ipv4 name roon-local rule 60 destination port '123'
+
+set firewall ipv4 name roon-transit rule 10 action 'accept'
+set firewall ipv4 name roon-transit rule 10 description 'Internal DNS'
+set firewall ipv4 name roon-transit rule 10 protocol 'tcp_udp'
+set firewall ipv4 name roon-transit rule 10 destination address '10.254.253.53'
+set firewall ipv4 name roon-transit rule 10 destination port '53'
+
+set firewall ipv4 name roon-transit rule 20 action 'accept'
+set firewall ipv4 name roon-transit rule 20 description 'ROCK to NAS SMB'
+set firewall ipv4 name roon-transit rule 20 protocol 'tcp'
+set firewall ipv4 name roon-transit rule 20 source address '10.1.4.10'
+set firewall ipv4 name roon-transit rule 20 destination group address-group 'STORAGE'
+set firewall ipv4 name roon-transit rule 20 destination port '445'
+
+set firewall ipv4 name roon-wan rule 100 action 'accept'
+set firewall ipv4 name roon-wan rule 100 description 'Music services and firmware updates'
+set firewall ipv4 name roon-wan rule 100 protocol 'tcp'
+set firewall ipv4 name roon-wan rule 100 destination port '80,443'
+
+set firewall ipv4 name trusted-roon rule 100 action 'accept'
+set firewall ipv4 name trusted-roon rule 100 description 'ROCK web administration from Trusted LAN'
+set firewall ipv4 name trusted-roon rule 100 inbound-interface name 'bond0.20'
+set firewall ipv4 name trusted-roon rule 100 protocol 'tcp'
+set firewall ipv4 name trusted-roon rule 100 destination address '10.1.4.10'
+set firewall ipv4 name trusted-roon rule 100 destination port '80'
+
+# The trusted zone includes the local Trusted VLAN and authorised WireGuard peers.
+set firewall ipv4 name trusted-roon rule 110 action 'accept'
+set firewall ipv4 name trusted-roon rule 110 description 'Roon ARC from Trusted LAN and WireGuard'
+set firewall ipv4 name trusted-roon rule 110 protocol 'tcp'
+set firewall ipv4 name trusted-roon rule 110 destination address '10.1.4.10'
+set firewall ipv4 name trusted-roon rule 110 destination port '59453'
+
+set firewall ipv4 name trusted-roon rule 120 action 'accept'
+set firewall ipv4 name trusted-roon rule 120 description 'Roon Remote control from Trusted LAN'
+set firewall ipv4 name trusted-roon rule 120 inbound-interface name 'bond0.20'
+set firewall ipv4 name trusted-roon rule 120 protocol 'tcp'
+set firewall ipv4 name trusted-roon rule 120 destination address '10.1.4.10'
+set firewall ipv4 name trusted-roon rule 120 destination port '9330,9332'

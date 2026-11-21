@@ -65,6 +65,13 @@ set interfaces bonding bond0 vif 40 mtu 1500
 set interfaces bonding bond0 vif 40 ip adjust-mss 'clamp-mss-to-pmtu'
 set interfaces bonding bond0 vif 40 ipv6 adjust-mss 'clamp-mss-to-pmtu'
 
+set interfaces bonding bond0 vif 60 address '10.1.4.1/24'
+set interfaces bonding bond0 vif 60 description 'ROON'
+set interfaces bonding bond0 vif 60 mtu 1500
+set interfaces bonding bond0 vif 60 ip adjust-mss 'clamp-mss-to-pmtu'
+set interfaces bonding bond0 vif 60 ipv6 disable-forwarding
+set interfaces bonding bond0 vif 60 ipv6 address no-default-link-local
+
 set interfaces bonding bond0 vif 100 address '10.1.0.1/24'
 set interfaces bonding bond0 vif 100 description 'management'
 set interfaces bonding bond0 vif 100 ip adjust-mss 'clamp-mss-to-pmtu'

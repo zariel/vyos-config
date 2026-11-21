@@ -45,6 +45,27 @@ set service dhcp-server shared-network-name IOT subnet 10.1.3.0/24 static-mappin
 set service dhcp-server shared-network-name IOT subnet 10.1.3.0/24 static-mapping lounge-harmony-hub ip-address '10.1.3.18'
 set service dhcp-server shared-network-name IOT subnet 10.1.3.0/24 static-mapping lounge-harmony-hub mac-address 'c8:db:26:10:c4:a7'
 
+# ROON
+set service dhcp-server shared-network-name ROON authoritative
+set service dhcp-server shared-network-name ROON ping-check
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 default-router '10.1.4.1'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 domain-name 'cbannister.casa'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 lease '28800'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 name-server '10.254.253.53'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 ntp-server '10.5.0.10'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 range 0 start '10.1.4.200'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 range 0 stop '10.1.4.239'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping rock ip-address '10.1.4.10'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping rock mac-address '7e:7d:c6:c7:26:ac'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping ropiee ip-address '10.1.4.11'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping ropiee mac-address 'dc:a6:32:e9:d2:4b'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping ropiee-remote ip-address '10.1.4.12'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping ropiee-remote mac-address 'dc:a6:32:d1:3b:22'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping bluesound-node2i ip-address '10.1.4.13'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping bluesound-node2i mac-address '90:56:82:41:62:8e'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping blusound-flex-mini-office ip-address '10.1.4.14'
+set service dhcp-server shared-network-name ROON subnet 10.1.4.0/24 static-mapping blusound-flex-mini-office mac-address '90:56:82:61:1a:fb'
+
 # LAN
 set service dhcp-server shared-network-name LAN authoritative
 set service dhcp-server shared-network-name LAN ping-check
@@ -181,8 +202,6 @@ set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-ma
 
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping nvidia-shield ip-address '10.1.2.50'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping nvidia-shield mac-address '48:b0:2d:2b:14:03'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping blusound-flex-mini-office ip-address '10.1.2.52'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping blusound-flex-mini-office mac-address '90:56:82:61:1a:fb'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping mrx740 ip-address '10.1.2.53'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping mrx740 mac-address '50:1e:2d:3e:39:48'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping coreelec ip-address '10.1.2.54'
@@ -191,17 +210,6 @@ set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-ma
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ufc-dock mac-address '80:b5:4e:8f:29:03'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ufc-remote ip-address '10.1.2.56'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ufc-remote mac-address '34:90:ea:c9:0d:6e'
-
-# roon
-# todo: move roon to IOT vlan and ensure it all works, need to forward ports and enable UDP Broadcast-Relay
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping rock ip-address '10.1.2.60'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping rock mac-address '7e:7d:c6:c7:26:ac'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ropiee ip-address '10.1.2.61'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ropiee mac-address 'dc:a6:32:e9:d2:4b'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ropiee-remote ip-address '10.1.2.62'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping ropiee-remote mac-address 'dc:a6:32:d1:3b:22'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping bluesound-node2i ip-address '10.1.2.63'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping bluesound-node2i mac-address '90:56:82:41:62:8e'
 
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping office-printer ip-address '10.1.2.70'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping office-printer mac-address '94:dd:f8:6c:f5:6a'
