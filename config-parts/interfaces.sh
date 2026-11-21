@@ -85,6 +85,12 @@ set interfaces bonding bond0 vif 3001 mtu 9000
 set interfaces bonding bond0 vif 3001 ip adjust-mss 'clamp-mss-to-pmtu'
 set interfaces bonding bond0 vif 3001 ipv6 adjust-mss 'clamp-mss-to-pmtu'
 
+# Temporary IPv6 BGP test link to the ICX7150, using documentation addresses.
+set interfaces bonding bond0 vif 3099 address '2001:db8:3099::1/64'
+set interfaces bonding bond0 vif 3099 description 'ICX7150 IPv6 BGP test'
+set interfaces dummy dum7150 address '2001:db8:7150::1/128'
+set interfaces dummy dum7150 description 'ICX7150 BGP test destination'
+
 set interfaces bonding bond0 member interface eth0
 set interfaces bonding bond0 member interface eth1
 

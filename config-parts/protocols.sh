@@ -36,6 +36,13 @@ set policy route-map KATL-LAB-IN rule 10 match ip address prefix-list 'KATL-LAB-
 set policy route-map KATL-LAB-IN rule 10000 action 'deny'
 set policy route-map KATL-LAB-OUT rule 10000 action 'deny'
 
+# Advertise only the test destination to the ICX7150 and accept nothing from it.
+set policy prefix-list6 ICX7150-TEST rule 10 action 'permit'
+set policy prefix-list6 ICX7150-TEST rule 10 prefix '2001:db8:7150::1/128'
+set policy route-map ICX7150-V6-OUT rule 10 action 'permit'
+set policy route-map ICX7150-V6-OUT rule 10 match ipv6 address prefix-list 'ICX7150-TEST'
+set policy route-map ICX7150-V6-IN rule 10 action 'deny'
+
 set protocols bgp system-as '65000'
 set protocols bgp parameters router-id '10.254.254.1'
 set protocols bgp parameters log-neighbor-changes
@@ -58,6 +65,11 @@ set protocols bgp neighbor 10.1.1.111 description 'katl-cp-2'
 set protocols bgp neighbor 10.1.1.111 peer-group 'KATL-LAB'
 set protocols bgp neighbor 10.1.1.112 description 'katl-cp-3'
 set protocols bgp neighbor 10.1.1.112 peer-group 'KATL-LAB'
+
+set protocols bgp neighbor 2001:db8:3099::2 description 'ICX7150 IPv6 test AS65011'
+set protocols bgp neighbor 2001:db8:3099::2 remote-as '65011'
+set protocols bgp neighbor 2001:db8:3099::2 address-family ipv6-unicast route-map import 'ICX7150-V6-IN'
+set protocols bgp neighbor 2001:db8:3099::2 address-family ipv6-unicast route-map export 'ICX7150-V6-OUT'
 # Install a VIP advertised by several control planes as equal-cost paths.
 set protocols bgp address-family ipv4-unicast maximum-paths ebgp '3'
 
@@ -75,6 +87,7 @@ set protocols bgp address-family ipv4-unicast network '10.1.4.0/24'
 set protocols bgp address-family ipv4-unicast network '10.5.0.0/26'
 set protocols bgp address-family ipv4-unicast network '10.254.254.1/32'
 set protocols bgp address-family ipv4-unicast network '192.168.2.0/24'
+set protocols bgp address-family ipv6-unicast network '2001:db8:7150::1/128'
 
 # IPv4 IGMP queries are owned by VyOS on Trusted, IoT and ROON.
 # The boot hook enables supervised pimd startup; see docs/multicast.md.

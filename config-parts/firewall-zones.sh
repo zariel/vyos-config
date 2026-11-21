@@ -11,6 +11,7 @@ set firewall zone roon interface 'bond0.60'
 set firewall zone containers interface 'pod-containers'
 set firewall zone local local-zone
 set firewall zone transit interface 'bond0.3001'
+set firewall zone transit interface 'bond0.3099'
 
 for to in guest iot lan local roon servers containers trusted transit wan; do
     set firewall zone $to default-action 'drop'
