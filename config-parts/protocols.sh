@@ -26,6 +26,16 @@ set policy route-map BGP-CONNECTED-TRUSTED rule 10 action 'permit'
 set policy route-map BGP-CONNECTED-TRUSTED rule 10 match ip address prefix-list 'BGP-CONNECTED-TRUSTED'
 set policy route-map BGP-CONNECTED-TRUSTED rule 10 match interface 'bond0.20'
 
+# Accept only /32 VIPs from the Katl lab's control planes and export nothing.
+set policy prefix-list KATL-LAB-VIPS rule 10 action 'permit'
+set policy prefix-list KATL-LAB-VIPS rule 10 ge '32'
+set policy prefix-list KATL-LAB-VIPS rule 10 le '32'
+set policy prefix-list KATL-LAB-VIPS rule 10 prefix '172.31.250.0/24'
+set policy route-map KATL-LAB-IN rule 10 action 'permit'
+set policy route-map KATL-LAB-IN rule 10 match ip address prefix-list 'KATL-LAB-VIPS'
+set policy route-map KATL-LAB-IN rule 10000 action 'deny'
+set policy route-map KATL-LAB-OUT rule 10000 action 'deny'
+
 set protocols bgp system-as '65000'
 set protocols bgp parameters router-id '10.254.254.1'
 set protocols bgp parameters log-neighbor-changes
@@ -37,6 +47,19 @@ set protocols bgp neighbor 10.254.0.1 remote-as '65001'
 set protocols bgp neighbor 10.254.0.1 address-family ipv4-unicast
 set protocols bgp neighbor 10.254.0.1 address-family ipv4-unicast route-map import 'BGP-ALLOW-ALL'
 set protocols bgp neighbor 10.254.0.1 address-family ipv4-unicast route-map export 'BGP-TO-CORE'
+
+set protocols bgp peer-group KATL-LAB remote-as '64513'
+set protocols bgp peer-group KATL-LAB address-family ipv4-unicast maximum-prefix '256'
+set protocols bgp peer-group KATL-LAB address-family ipv4-unicast route-map import 'KATL-LAB-IN'
+set protocols bgp peer-group KATL-LAB address-family ipv4-unicast route-map export 'KATL-LAB-OUT'
+set protocols bgp neighbor 10.1.1.110 description 'katl-cp-1'
+set protocols bgp neighbor 10.1.1.110 peer-group 'KATL-LAB'
+set protocols bgp neighbor 10.1.1.111 description 'katl-cp-2'
+set protocols bgp neighbor 10.1.1.111 peer-group 'KATL-LAB'
+set protocols bgp neighbor 10.1.1.112 description 'katl-cp-3'
+set protocols bgp neighbor 10.1.1.112 peer-group 'KATL-LAB'
+# Install a VIP advertised by several control planes as equal-cost paths.
+set protocols bgp address-family ipv4-unicast maximum-paths ebgp '3'
 
 set protocols bgp address-family ipv4-unicast redistribute connected route-map 'BGP-CONNECTED-TRUSTED'
 
