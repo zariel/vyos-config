@@ -28,3 +28,5 @@ set firewall ipv6 name trusted-transit default-action 'drop'
 
 # Trusted commissioning of Thread devices now uses trusted-thread in
 # matter-networks.sh rather than the former IoT next hop.
+
+set firewall ipv6 name trusted-iot default-log

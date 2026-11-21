@@ -110,3 +110,8 @@ set firewall ipv4 name servers-transit rule 130 source group address-group nfs_c
 set firewall ipv4 name servers-transit rule 130 destination group port-group nfs_ports
 set firewall ipv4 name servers-transit rule 130 destination group address-group STORAGE
 set firewall ipv4 name servers-transit rule 130 protocol tcp_udp
+
+set firewall ipv4 name servers-transit rule 200 action 'accept'
+set firewall ipv4 name servers-transit rule 200 description 'allow servers to access kube load balancers'
+set firewall ipv4 name servers-transit rule 200 destination group network-group 'LB_IPS'
+set firewall ipv4 name servers-transit rule 200 protocol 'tcp_udp'

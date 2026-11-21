@@ -56,6 +56,9 @@ set firewall ipv4 name transit-containers rule 120 protocol tcp
 
 # From TRANSIT to WAN
 set firewall ipv4 name transit-wan default-action drop
+set firewall ipv4 name transit-wan rule 50 action 'drop'
+set firewall ipv4 name transit-wan rule 50 destination geoip country-code 'cn'
+set firewall ipv4 name transit-wan rule 50 destination geoip country-code 'ru'
 set firewall ipv4 name transit-wan rule 100 action accept
 set firewall ipv4 name transit-wan rule 100 description 'Allow K8S to access WAN'
 set firewall ipv4 name transit-wan rule 100 source group address-group k8s_nodes
@@ -143,6 +146,7 @@ set firewall ipv4 name transit-lan rule 20 action accept
 set firewall ipv4 name transit-lan rule 20 description 'Allow ICMP'
 set firewall ipv4 name transit-lan rule 20 protocol icmp
 
+set firewall ipv4 name transit-lan default-log
 set firewall ipv4 name transit-lan rule 100 action accept
 set firewall ipv4 name transit-lan rule 100 description 'allow snmp scraping'
 set firewall ipv4 name transit-lan rule 100 source group network-group POD_NETS

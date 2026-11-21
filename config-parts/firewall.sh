@@ -12,6 +12,7 @@ set firewall global-options broadcast-ping disable
 # Router (VyOS itself)
 set firewall group address-group router-addresses address '10.254.254.1'
 set firewall group address-group router-addresses address 127.0.0.1
+set firewall group address-group router-addresses address '10.1.0.1'
 set firewall group ipv6-address-group router-addresses-ipv6 address fe80::e63a:6eff:fe5a:f805
 set firewall group ipv6-address-group router-addresses-ipv6 address ::1
 
@@ -52,6 +53,7 @@ set firewall group port-group apple_services_ports port '6002'
 set firewall group port-group apple_services_ports port '7000'
 set firewall group port-group apple_services_ports port '30000-65535'
 
+set firewall group address-group node_exporter_targets address '10.1.0.1' # gateway management
 set firewall group address-group node_exporter_targets address '10.1.2.54' # am6b
 set firewall group address-group node_exporter_targets address '10.1.2.57' # bc250
 set firewall group address-group node_exporter_targets address '10.1.2.15' # dev

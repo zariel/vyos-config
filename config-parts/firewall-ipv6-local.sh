@@ -99,3 +99,6 @@ set firewall ipv6 name local-transit rule 15 protocol 'tcp'
 set firewall ipv6 name local-transit rule 15 source address '2001:db8:3099::1'
 set firewall ipv6 name local-transit rule 15 destination address '2001:db8:3099::2'
 set firewall ipv6 name local-transit rule 15 destination port '179'
+
+set firewall ipv6 name local-iot default-log
+set firewall ipv6 name local-trusted default-log

@@ -34,6 +34,10 @@ set firewall ipv4 name wan-containers default-action 'drop'
 set firewall ipv4 name wan-trusted default-action 'drop'
 
 # From WAN to TRANSIT
+set firewall ipv4 name wan-transit rule 50 action 'drop'
+set firewall ipv4 name wan-transit rule 50 source geoip country-code 'cn'
+set firewall ipv4 name wan-transit rule 50 source geoip country-code 'ru'
+
 set firewall ipv4 name wan-transit rule 100 action accept
 set firewall ipv4 name wan-transit rule 100 description 'Rule: qbittorrent'
 set firewall ipv4 name wan-transit rule 100 destination port '50413'
