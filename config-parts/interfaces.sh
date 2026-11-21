@@ -1,7 +1,6 @@
 #!/bin/vbash
 
 set interfaces loopback lo address '10.254.254.1/32'
-set interfaces loopback lo description 'loopback identity'
 # Host-owned unicast service addresses; Matchbox .8 remains on the container bridge.
 set interfaces loopback lo address '10.5.0.9/32'
 set interfaces loopback lo address '10.5.0.10/32'
@@ -53,7 +52,6 @@ set interfaces bonding bond0 vif 20 address 'fd74:f571:d3bd:20::1/64'
 set interfaces bonding bond0 vif 20 description 'TRUSTED'
 set interfaces bonding bond0 vif 20 mtu 1500
 set interfaces bonding bond0 vif 20 ip adjust-mss 'clamp-mss-to-pmtu'
-set interfaces bonding bond0 vif 20 ipv6 adjust-mss 'clamp-mss-to-pmtu'
 
 set interfaces bonding bond0 vif 30 address '192.168.2.1/24'
 set interfaces bonding bond0 vif 30 description 'GUEST'
@@ -65,7 +63,6 @@ set interfaces bonding bond0 vif 40 address 'fd74:f571:d3bd:40::1/64'
 set interfaces bonding bond0 vif 40 description 'IOT'
 set interfaces bonding bond0 vif 40 mtu 1500
 set interfaces bonding bond0 vif 40 ip adjust-mss 'clamp-mss-to-pmtu'
-set interfaces bonding bond0 vif 40 ipv6 adjust-mss 'clamp-mss-to-pmtu'
 
 set interfaces bonding bond0 vif 60 address '10.1.4.1/24'
 set interfaces bonding bond0 vif 60 description 'ROON'
@@ -76,9 +73,7 @@ set interfaces bonding bond0 vif 60 ipv6 address no-default-link-local
 
 set interfaces bonding bond0 vif 100 address '10.1.0.1/24'
 set interfaces bonding bond0 vif 100 description 'management'
-set interfaces bonding bond0 vif 100 ip adjust-mss 'clamp-mss-to-pmtu'
 set interfaces bonding bond0 vif 100 mtu 1500
-
 
 # set interfaces bonding bond0 vif 5 address fd74:f571:d3bd:5::0/127
 set interfaces bonding bond0 vif 3001 address 10.254.0.0/31
@@ -117,7 +112,6 @@ set interfaces ethernet eth3 disable-flow-control
 set interfaces ethernet eth3 hw-id 'a0:36:9f:a9:0d:3b'
 set interfaces ethernet eth3 ip adjust-mss 'clamp-mss-to-pmtu'
 set interfaces ethernet eth3 ip source-validation 'loose'
-set interfaces ethernet eth3 ipv6 adjust-mss 'clamp-mss-to-pmtu'
 set interfaces ethernet eth3 ring-buffer rx '1024'
 set interfaces ethernet eth3 ring-buffer tx '1024'
 
@@ -127,7 +121,6 @@ set interfaces ethernet eth4 address '10.1.0.1/24'
 
 set interfaces wireguard wg01 address '10.0.11.1/24'
 set interfaces wireguard wg01 description 'WIREGUARD'
-set interfaces wireguard wg01 ip adjust-mss 'clamp-mss-to-pmtu'
 set interfaces wireguard wg01 peer wall-e allowed-ips '10.0.11.4/32'
 set interfaces wireguard wg01 peer wall-e persistent-keepalive '15'
 set interfaces wireguard wg01 peer wall-e public-key '0wrH9QqKMRbcnMc41xzwEvLX9xyKY/mB1no94woOAhQ='
