@@ -89,10 +89,6 @@ set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mappin
 set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mapping pdu ip-address '10.1.0.31'
 set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mapping pdu mac-address '00:0d:5d:09:27:b7'
 
-# pikvm, static IP
-set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mapping pikvm ip-address '10.1.0.100'
-set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mapping pikvm mac-address 'e4:5f:01:f4:9d:97'
-
 # Servers VLAN
 set service dhcp-server shared-network-name SERVERS authoritative
 set service dhcp-server shared-network-name SERVERS ping-check
@@ -136,9 +132,6 @@ set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-ma
 set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping postgres ip-address '10.1.1.41'
 set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping postgres mac-address '52:f0:87:82:1f:2c'
 
-set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping tesmart-kvm ip-address '10.1.1.51'
-set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping tesmart-kvm mac-address '38:3b:26:7f:32:12'
-
 set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping ash-vm ip-address '10.1.1.55'
 set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping ash-vm mac-address 'BC:24:11:56:D2:B7'
 
@@ -148,7 +141,6 @@ set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-ma
 set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping katl-1 mac-address 'BC:24:11:E9:26:7C'
 set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping katl-2 ip-address '10.1.1.112'
 set service dhcp-server shared-network-name SERVERS subnet 10.1.1.0/24 static-mapping katl-2 mac-address 'BC:24:11:AF:13:13'
-
 
 # Trusted VLAN
 set service dhcp-server shared-network-name TRUSTED authoritative
