@@ -89,6 +89,35 @@ set firewall ipv4 name transit-trusted rule 110 destination address 10.1.2.70
 set firewall ipv4 name transit-trusted rule 110 destination port 443,54921
 set firewall ipv4 name transit-trusted rule 110 protocol tcp
 
+# Home Assistant reaches these Trusted devices from the pod network.
+set firewall ipv4 name transit-trusted rule 120 action accept
+set firewall ipv4 name transit-trusted rule 120 description 'Allow pods to Anthem A/V control'
+set firewall ipv4 name transit-trusted rule 120 source group network-group POD_NETS
+set firewall ipv4 name transit-trusted rule 120 destination address 10.1.2.53
+set firewall ipv4 name transit-trusted rule 120 destination port 14999
+set firewall ipv4 name transit-trusted rule 120 protocol tcp
+
+set firewall ipv4 name transit-trusted rule 130 action accept
+set firewall ipv4 name transit-trusted rule 130 description 'Allow pods to Kodi JSON-RPC'
+set firewall ipv4 name transit-trusted rule 130 source group network-group POD_NETS
+set firewall ipv4 name transit-trusted rule 130 destination address 10.1.2.54
+set firewall ipv4 name transit-trusted rule 130 destination port 8080,9090
+set firewall ipv4 name transit-trusted rule 130 protocol tcp
+
+set firewall ipv4 name transit-trusted rule 140 action accept
+set firewall ipv4 name transit-trusted rule 140 description 'Allow pods to Unfolded Circle remote API'
+set firewall ipv4 name transit-trusted rule 140 source group network-group POD_NETS
+set firewall ipv4 name transit-trusted rule 140 destination address 10.1.2.56
+set firewall ipv4 name transit-trusted rule 140 destination port 80
+set firewall ipv4 name transit-trusted rule 140 protocol tcp
+
+set firewall ipv4 name transit-trusted rule 150 action accept
+set firewall ipv4 name transit-trusted rule 150 description 'Allow pods to Brother printer SNMP'
+set firewall ipv4 name transit-trusted rule 150 source group network-group POD_NETS
+set firewall ipv4 name transit-trusted rule 150 destination address 10.1.2.70
+set firewall ipv4 name transit-trusted rule 150 destination port 161
+set firewall ipv4 name transit-trusted rule 150 protocol udp
+
 # From TRANSIT to IOT
 set firewall ipv4 name transit-iot default-action drop
 
