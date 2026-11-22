@@ -159,12 +159,6 @@ set firewall ipv4 name transit-servers rule 200 protocol tcp
 # From TRANSIT to LAN
 
 set firewall ipv4 name transit-lan default-log
-set firewall ipv4 name transit-lan rule 100 action accept
-set firewall ipv4 name transit-lan rule 100 description 'allow snmp scraping'
-set firewall ipv4 name transit-lan rule 100 source group network-group POD_NETS
-set firewall ipv4 name transit-lan rule 100 destination port 161,162
-set firewall ipv4 name transit-lan rule 100 destination group address-group snmp_targets
-set firewall ipv4 name transit-lan rule 100 protocol udp
 
 set firewall ipv4 name transit-lan rule 101 action accept
 set firewall ipv4 name transit-lan rule 101 description 'Allow access to node_exporter'
@@ -172,13 +166,6 @@ set firewall ipv4 name transit-lan rule 101 destination port 9100
 set firewall ipv4 name transit-lan rule 101 source group network-group POD_NETS
 set firewall ipv4 name transit-lan rule 101 protocol tcp
 set firewall ipv4 name transit-lan rule 101 destination group address-group node_exporter_targets
-
-set firewall ipv4 name transit-lan rule 110 action accept
-set firewall ipv4 name transit-lan rule 110 description 'Allow PDU certificate deployment'
-set firewall ipv4 name transit-lan rule 110 source group network-group POD_NETS
-set firewall ipv4 name transit-lan rule 110 destination address '10.1.0.31'
-set firewall ipv4 name transit-lan rule 110 destination port '443'
-set firewall ipv4 name transit-lan rule 110 protocol tcp
 
 set firewall ipv4 name transit-lan rule 120 action 'accept'
 set firewall ipv4 name transit-lan rule 120 description 'Allow pods to access UniFi Network MCP controller'

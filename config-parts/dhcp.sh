@@ -86,9 +86,6 @@ set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mappin
 set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mapping unifi-os ip-address '10.1.0.23'
 set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mapping unifi-os mac-address 'bc:24:11:b4:9c:2c'
 
-set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mapping pdu ip-address '10.1.0.31'
-set service dhcp-server shared-network-name LAN subnet 10.1.0.0/24 static-mapping pdu mac-address '00:0d:5d:09:27:b7'
-
 # Servers VLAN
 set service dhcp-server shared-network-name SERVERS authoritative
 set service dhcp-server shared-network-name SERVERS ping-check
