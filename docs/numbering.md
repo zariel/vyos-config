@@ -1,7 +1,7 @@
 # Network addressing
 
-NetBox is the allocation authority. The [host service addressing policy](https://github.com/zariel/home-ops/blob/main/docs/host-services.md)
-is maintained in `../home-ops/docs/host-services.md` and covers address ownership,
+NetBox is the allocation authority. The host service addressing policy is
+maintained in the infra workspace as `docs/host-services.md` and covers address ownership,
 per-host allocation, shared VIPs and the staged gateway migration.
 
 Reserve `10.5.0.0/16` for host-owned services, with one `/26` per host. The gateway
