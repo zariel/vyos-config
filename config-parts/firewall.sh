@@ -95,8 +95,6 @@ set firewall group address-group PROXMOX_HOSTS address '10.1.1.31'
 set firewall group address-group PROXMOX_HOSTS address '10.1.1.32'
 set firewall group address-group PROXMOX_HOSTS address '10.1.1.41'
 
-# brocade 
-set firewall group address-group snmp_targets address 10.1.0.10
 # pdu 
 set firewall group address-group snmp_targets address 10.1.0.31
 
