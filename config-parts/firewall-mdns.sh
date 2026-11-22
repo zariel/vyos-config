@@ -6,8 +6,11 @@
 # Keep these allowances on reflector LANs and above the privileged port range;
 # this also permits ordinary unicast mDNS replies to client port 5353.
 for mdns_family in ipv4 ipv6; do
-    for mdns_zone in trusted iot thread matter; do
+    for mdns_zone in trusted iot roon thread matter; do
         if [[ "$mdns_family" == ipv4 && ( "$mdns_zone" == thread || "$mdns_zone" == matter ) ]]; then
+            continue
+        fi
+        if [[ "$mdns_family" == ipv6 && "$mdns_zone" == roon ]]; then
             continue
         fi
         for mdns_policy in "$mdns_zone-local" "local-$mdns_zone"; do

@@ -38,6 +38,7 @@ set service tftp-server listen-address 10.254.254.1
 # mDNS Repeater
 set service mdns repeater interface 'bond0.20'
 set service mdns repeater interface 'bond0.40'
+set service mdns repeater interface 'bond0.60'
 set service mdns repeater allow-service '_hap._tcp.local'
 set service mdns repeater allow-service '_hap._udp.local'
 set service mdns repeater allow-service '_airplay._tcp.local'
@@ -46,6 +47,8 @@ set service mdns repeater allow-service '_ipp._tcp.local'
 set service mdns repeater allow-service '_printer._tcp.local'
 set service mdns repeater allow-service '_companion-link._tcp.local'
 set service mdns repeater allow-service '_meshcop._udp.local'
+# The BluOS app finds Bluesound players on ROON through their music controller service.
+set service mdns repeater allow-service '_musc._tcp.local'
 
 # set service router-advert interface bond0.20 default-preference 'high'
 # set service router-advert interface bond0.40 default-preference 'high'
