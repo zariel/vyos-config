@@ -101,6 +101,12 @@ set firewall ipv4 name trusted-transit rule 120 action accept
 set firewall ipv4 name trusted-transit rule 120 destination group network-group DNS_SERVERS
 set firewall ipv4 name trusted-transit rule 120 description 'Trusted to dns'
 
+# The trusted LAN only: WireGuard peers share the zone but must not reach OOB.
+set firewall ipv4 name trusted-transit rule 130 action accept
+set firewall ipv4 name trusted-transit rule 130 description 'Trusted LAN to OOB'
+set firewall ipv4 name trusted-transit rule 130 source address '10.1.2.0/24'
+set firewall ipv4 name trusted-transit rule 130 destination address '10.1.254.0/24'
+
 set firewall ipv4 name trusted-transit rule 200 action accept
 set firewall ipv4 name trusted-transit rule 200 destination group address-group K8S_NODES
 set firewall ipv4 name trusted-transit rule 200 destination group port-group KATL_PORTS
