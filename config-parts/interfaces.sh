@@ -118,7 +118,8 @@ set interfaces ethernet eth3 ring-buffer tx '1024'
 set interfaces ethernet eth4 hw-id '50:9a:4c:4b:f6:0c'
 # The onboard NIC is the NixOS gateway's out-of-band port (rescue0); VyOS leaves
 # it unnumbered.
-set interfaces ethernet eth4 description 'OOB port; unused on VyOS'
+set interfaces ethernet eth4 description 'OOB port; cabled to the OOB switch, disabled until the NixOS gateway'
+set interfaces ethernet eth4 disable
 
 set interfaces wireguard wg01 address '10.0.11.1/24'
 set interfaces wireguard wg01 description 'WIREGUARD'
