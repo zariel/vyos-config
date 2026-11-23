@@ -5,6 +5,11 @@
 mkdir -p /tmp/bind/cache
 chown -R 100 /tmp/bind/cache
 
+# COM1 (ttyS0) is the break-glass console on Avocent port 2 at 115200. The
+# kernel console is tty0 only, so nothing else sets the UART's speed, and the
+# serial getty's --keep-baud would otherwise keep its 9600 power-on default.
+stty -F /dev/ttyS0 115200 || true
+
 # VyOS 1.4 incorrectly requires both address families on every mDNS interface
 # in "both" mode. Avahi supports mixed links, including IPv6-only Matter VLANs.
 # Reapply the small validator fix before startup configuration is validated.

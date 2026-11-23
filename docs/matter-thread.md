@@ -21,6 +21,13 @@ The Thread OMR remains `fd42:dfb5:24e4:1::/64`; there is no static IoT next
 hop. IoT RA input is explicitly dropped, independently of VyOS restoring
 its forwarding-mode `accept_ra` default during interface reconfiguration.
 
+These per-interface RA settings are applied by `scripts/interface-sysctls.sh`,
+from the postconfig boot hook and the `97-interface-sysctls` commit hook,
+rather than through `system sysctl`. VyOS validates sysctl keys against the
+running kernel, and the VLANs do not exist yet when the boot configuration is
+validated, so on 2026-11-22 the per-interface keys made the whole
+`system sysctl` node, including the TCP tuning, fail to load at boot.
+
 ## VyOS 1.4 mDNS compatibility
 
 Stock VyOS validates every interface as dual-stack when the mDNS repeater

@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /config/scripts/interface-sysctls.sh

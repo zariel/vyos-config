@@ -71,7 +71,8 @@ set protocols pim6 interface bond0.1101 mld interval '125'
 
 # Never learn RAs on IoT. The controller network also uses forwarding mode
 # without IPv6 autoconf, so its RAs are ignored.
-set system sysctl parameter 'net.ipv6.conf.bond0/40.accept_ra' value '0'
+# scripts/interface-sysctls.sh sets accept_ra=0 on bond0.40 at boot and after
+# each commit, for the reason given at bond0.1100 below.
 
 # Interface reconfiguration can restore VyOS's forwarding-mode RA default.
 # Enforce the IoT RA boundary in the input policy as well, while retaining ND.
@@ -84,13 +85,10 @@ set firewall ipv6 name iot-local rule 10 icmpv6 type-name 'nd-router-advert'
 # Suppress PIO/SLAAC, default-router and MTU learning; accept only /64 RIOs.
 # The source filter below identifies OTBR by its retained MAC/link-local address.
 set interfaces bonding bond0 vif 1100 ipv6 address autoconf
-set system sysctl parameter 'net.ipv6.conf.bond0/1100.accept_ra_defrtr' value '0'
-set system sysctl parameter 'net.ipv6.conf.bond0/1100.accept_ra_pinfo' value '0'
-set system sysctl parameter 'net.ipv6.conf.bond0/1100.accept_ra_mtu' value '0'
-set system sysctl parameter 'net.ipv6.conf.bond0/1100.accept_ra_rtr_pref' value '1'
-set system sysctl parameter 'net.ipv6.conf.bond0/1100.accept_ra_rt_info_min_plen' value '64'
-set system sysctl parameter 'net.ipv6.conf.bond0/1100.accept_ra_rt_info_max_plen' value '64'
-set system sysctl parameter 'net.ipv6.conf.bond0/1100.accept_redirects' value '0'
+# scripts/interface-sysctls.sh applies those limits at boot and after each
+# commit. VyOS validates `system sysctl` keys against the running kernel, and at
+# boot the VLANs do not exist yet, so per-interface keys there make the whole
+# `system sysctl` node fail to load.
 set firewall ipv6 name thread-local rule 5 action 'accept'
 set firewall ipv6 name thread-local rule 5 description 'Learn OMR RIOs only from OTBR'
 set firewall ipv6 name thread-local rule 5 protocol 'icmpv6'

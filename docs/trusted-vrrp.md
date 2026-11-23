@@ -18,10 +18,19 @@ separate change; this preparation does not move its addresses or DHCP scope.
 
 Confirm/reserve the permanent addresses in NetBox before deployment. Both peers
 must use the same VRRP version; this VyOS configuration uses the 1.4 default,
-version 2 for IPv4. Configure the VM explicitly for version 2. Both peers should
-start in BACKUP state with preemption disabled. Start VyOS first for the initial
-rollout so it owns the VIP before enabling the VM. Later, a recovered primary
-will remain in backup until an intentional handover.
+version 2 for IPv4. Configure the VM explicitly for version 2. Both peers
+start in BACKUP state. The VM never preempts. VyOS preempts 180 seconds after
+its VRRP process starts, because the VM has no WAN: while it holds the VIP,
+trusted clients reach the internal fabric but not the internet. The delay
+covers the rest of VyOS's boot-time configuration load and BGP establishment.
+On 2026-11-22, VyOS rebooted with no preemption, so the trusted LAN stayed
+offline after VyOS had fully recovered until the VIP was handed back by hand.
+
+To hand the VIP back by hand, for example after stopping VyOS's VRRP, stop
+`keepalived` on the VM, confirm `show vrrp` on VyOS reports MASTER, then
+start `keepalived` on the VM again. While the VM holds the VIP, SSH to VyOS
+only through `10.1.2.5`: every other VyOS address is reached through the
+transit zone, whose `transit-local` policy does not admit SSH.
 
 The VIP is placed directly on `bond0.20`. Existing trusted-zone and DNS-redirect
 interface matches remain applicable. Gratuitous ARP updates clients when the

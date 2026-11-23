@@ -23,8 +23,11 @@ fi
 # Restore the IPv4 TCP IP-options filter until the kernel is patched.
 /config/scripts/commit/post-hooks.d/cve-2026-98432
 
+# Per-interface IPv6 sysctls that `system sysctl` cannot load at boot.
+/config/scripts/interface-sysctls.sh
+
 # VyOS 1.4 cannot express CAKE's ingress mode in its QoS configuration.
 /config/scripts/cake-ingress.sh
 
-# Restore WAN blocklists locally, even when the feed is unavailable at boot.
+# Restore cached WAN blocklists without fetching during boot.
 sudo -n /config/scripts/spamhaus-drop.py --restore
