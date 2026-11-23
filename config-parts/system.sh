@@ -15,6 +15,10 @@ set system static-host-mapping host-name gateway inet '10.254.254.1'
 
 set system login user vyos authentication public-keys personal key 'AAAAC3NzaC1lZDI1NTE5AAAAINiFPVXT03FdYS3BKuqNmgplaGrzNc6i++77vCI2AJ8c'
 set system login user vyos authentication public-keys personal type 'ssh-ed25519'
+# Log out idle shells after 15 minutes, so a console session left open on the
+# PiKVM or the Avocent serial port does not stay logged in. VyOS sets TMOUT for
+# every interactive shell, SSH included.
+set system login timeout '900'
 
 set system name-server '1.1.1.1'
 set system name-server '2606:4700:4700::1111'
