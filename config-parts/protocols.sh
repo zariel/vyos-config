@@ -5,9 +5,11 @@ set protocols static route 0.0.0.0/0 dhcp-interface eth3
 
 set protocols static route 10.0.0.0/8 reject
 
-# Keep trusted peers reachable with only the permanent /32 on this interface.
-# This static route is not redistributed; VRRP alone creates the connected /24.
+# Keep trusted and servers peers reachable with only the permanent /32 on each
+# interface. These static routes are not redistributed; VRRP alone creates the
+# connected /24s.
 set protocols static route 10.1.2.0/24 interface 'bond0.20'
+set protocols static route 10.1.1.0/24 interface 'bond0.10'
 
 set policy route-map BGP-ALLOW-ALL rule 10 action 'permit'
 
@@ -18,13 +20,20 @@ set policy as-path-list BGP-LOCAL-ORIGIN rule 10 regex '^$'
 set policy route-map BGP-TO-CORE rule 10 action 'permit'
 set policy route-map BGP-TO-CORE rule 10 match as-path 'BGP-LOCAL-ORIGIN'
 
-# Originate only the connected trusted /24, present while VRRP owns .1/24.
-# Exact prefix and interface matches exclude the node /32 and other networks.
+# Originate only the connected trusted and servers /24s, each present while
+# VRRP owns its .1/24. Exact prefix and interface matches exclude the node /32s
+# and other networks. The route-map keeps its name from when it covered only
+# trusted, so the BGP redistribution line is unchanged.
 set policy prefix-list BGP-CONNECTED-TRUSTED rule 10 action 'permit'
 set policy prefix-list BGP-CONNECTED-TRUSTED rule 10 prefix '10.1.2.0/24'
 set policy route-map BGP-CONNECTED-TRUSTED rule 10 action 'permit'
 set policy route-map BGP-CONNECTED-TRUSTED rule 10 match ip address prefix-list 'BGP-CONNECTED-TRUSTED'
 set policy route-map BGP-CONNECTED-TRUSTED rule 10 match interface 'bond0.20'
+set policy prefix-list BGP-CONNECTED-SERVERS rule 10 action 'permit'
+set policy prefix-list BGP-CONNECTED-SERVERS rule 10 prefix '10.1.1.0/24'
+set policy route-map BGP-CONNECTED-TRUSTED rule 20 action 'permit'
+set policy route-map BGP-CONNECTED-TRUSTED rule 20 match ip address prefix-list 'BGP-CONNECTED-SERVERS'
+set policy route-map BGP-CONNECTED-TRUSTED rule 20 match interface 'bond0.10'
 
 # Accept only /32 VIPs from the Katl lab's control planes and export nothing.
 set policy prefix-list KATL-LAB-VIPS rule 10 action 'permit'
@@ -81,7 +90,6 @@ set protocols bgp address-family ipv4-unicast network '192.168.0.0/16'
 set protocols bgp address-family ipv4-unicast network '172.16.0.0/12'
 set protocols bgp address-family ipv4-unicast network '10.0.11.0/24'
 set protocols bgp address-family ipv4-unicast network '10.1.0.0/24'
-set protocols bgp address-family ipv4-unicast network '10.1.1.0/24'
 set protocols bgp address-family ipv4-unicast network '10.1.3.0/24'
 set protocols bgp address-family ipv4-unicast network '10.1.4.0/24'
 set protocols bgp address-family ipv4-unicast network '10.5.0.0/26'

@@ -26,7 +26,27 @@ covers the rest of VyOS's boot-time configuration load and BGP establishment.
 On 2026-11-22, VyOS rebooted with no preemption, so the trusted LAN stayed
 offline after VyOS had fully recovered until the VIP was handed back by hand.
 
-To hand the VIP back by hand, for example after stopping VyOS's VRRP, stop
+## Servers
+
+The servers VLAN uses the same pattern so that trusted clients keep reaching
+builder's Nix cache, the Proxmox hosts and PBS through the VM while VyOS is
+down. Group `SERVERS`, VRID `10`, places `10.1.1.1/24` on `bond0.10`, with
+permanent addresses `10.1.1.5/32` (VyOS) and `10.1.1.6/32` (VM), the same
+priorities, preempt delay and transit tracking, and a static on-link `/24`.
+The connected `/24` is exported through rule 20 of `BGP-CONNECTED-TRUSTED`
+rather than a `network` statement, so it follows VRRP ownership.
+
+Sync group `GATEWAY` holds `TRUSTED` and `SERVERS`, and the VM has the
+matching keepalived sync group, so both VIPs always belong to the same router.
+Split ownership would send trusted-servers traffic in through one router and
+back through the other, and each firewall would drop its half of the
+connection. The TFTP compatibility listener stays on `10.1.1.1`;
+`net.ipv4.ip_nonlocal_bind` lets it bind while VyOS is BACKUP. VyOS-only
+services, such as the servers NTP interception, are absent during a failover.
+
+## Manual handback
+
+To hand the VIPs back by hand, for example after stopping VyOS's VRRP, stop
 `keepalived` on the VM, confirm `show vrrp` on VyOS reports MASTER, then
 start `keepalived` on the VM again. While the VM holds the VIP, SSH to VyOS
 only through `10.1.2.5`: every other VyOS address is reached through the

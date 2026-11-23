@@ -19,6 +19,11 @@ set firewall ipv4 name servers-lan rule 100 protocol 'udp'
 # From SERVERS to LOCAL
 set firewall ipv4 name servers-local default-action 'drop'
 set firewall ipv4 name servers-local default-log
+set firewall ipv4 name servers-local rule 10 action 'accept'
+set firewall ipv4 name servers-local rule 10 description 'VRRP from servers backup VM'
+set firewall ipv4 name servers-local rule 10 protocol '112'
+set firewall ipv4 name servers-local rule 10 source address '10.1.1.6'
+set firewall ipv4 name servers-local rule 10 destination address '10.1.1.5'
 set firewall ipv4 name servers-local rule 50 action 'accept'
 set firewall ipv4 name servers-local rule 50 description 'Rule: accept_dhcp'
 set firewall ipv4 name servers-local rule 50 destination port '67,68'

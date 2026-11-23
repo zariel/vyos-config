@@ -34,6 +34,9 @@ set system time-zone 'Europe/London'
 
 set system option kernel disable-mitigations
 
+# The TFTP compatibility listener on 10.1.1.1 binds to a VRRP address that
+# VyOS does not hold while BACKUP, or at boot before VRRP settles.
+set system sysctl parameter net.ipv4.ip_nonlocal_bind value '1'
 set system sysctl parameter net.core.default_qdisc value 'fq_codel'
 set system sysctl parameter net.core.netdev_budget value '1200'
 set system sysctl parameter net.core.netdev_budget_usecs value '8000'

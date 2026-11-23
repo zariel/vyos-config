@@ -35,6 +35,11 @@ set firewall ipv4 name local-lan default-log
 # From LOCAL to SERVERS
 set firewall ipv4 name local-servers default-action 'drop'
 set firewall ipv4 name local-servers default-log
+set firewall ipv4 name local-servers rule 10 action 'accept'
+set firewall ipv4 name local-servers rule 10 description 'VRRP to servers backup VM'
+set firewall ipv4 name local-servers rule 10 protocol '112'
+set firewall ipv4 name local-servers rule 10 source address '10.1.1.5'
+set firewall ipv4 name local-servers rule 10 destination address '10.1.1.6'
 set firewall ipv4 name local-servers rule 40 action 'accept'
 set firewall ipv4 name local-servers rule 40 description 'Rule: accept_dns'
 set firewall ipv4 name local-servers rule 40 destination port 'domain,domain-s'

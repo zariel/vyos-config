@@ -41,7 +41,8 @@ set interfaces bonding bond0 lacp-rate 'fast'
 set interfaces bonding bond0 mac '08:c0:eb:0f:e4:30'
 set interfaces bonding bond0 mtu 9000
 
-set interfaces bonding bond0 vif 10 address '10.1.1.1/24'
+# Permanent /32; VRRP group SERVERS adds the shared gateway 10.1.1.1/24.
+set interfaces bonding bond0 vif 10 address '10.1.1.5/32'
 set interfaces bonding bond0 vif 10 description 'SERVERS'
 set interfaces bonding bond0 vif 10 mtu 9000
 set interfaces bonding bond0 vif 10 ip adjust-mss 'clamp-mss-to-pmtu'
