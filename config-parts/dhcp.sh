@@ -162,7 +162,7 @@ set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-ma
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping chris-macbook-lounge-dock mac-address '64:4b:f0:13:15:0c'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping gamingvm ip-address '10.1.2.15'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping gamingvm mac-address 'BC:24:11:76:51:F4'
-set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping katl-test ip-address '10.1.2.17'
+set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping katl-test ip-address '10.1.2.199'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping katl-test mac-address 'BC:24:11:96:33:04'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping thinliz ip-address '10.1.2.102'
 set service dhcp-server shared-network-name TRUSTED subnet 10.1.2.0/24 static-mapping thinliz mac-address '48:21:0b:60:1a:3f'
