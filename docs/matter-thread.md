@@ -51,4 +51,5 @@ Kubernetes nodes. After workload migration, the active Thread dataset was
 unchanged, the Matter fabric retained all five available nodes, and VyOS
 learned the OMR route via OTBR on VLAN 1100. All three workloads and their
 Flux reconciliations were healthy. The data PVCs and Kubernetes Service URLs
-were retained. The ICX carries these VLANs on LAG 1 and ports 1/2/1–1/2/3.
+were retained. The ICX carries these VLANs on the gateway LAG and the
+Kubernetes node links.
