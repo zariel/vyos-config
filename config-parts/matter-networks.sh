@@ -59,9 +59,11 @@ for matter_zone in thread matter; do
     done
 done
 
-# Provide an infrastructure PIO for OTBR's border-routing manager. Controllers
-# will use static addressing/default routes; they do not need an RA service.
+# Tell OTBR which local networks are reachable through VyOS. Controllers
+# keep their static addressing and default route on VLAN 1101.
 set service router-advert interface bond0.1100 prefix 'fd74:f571:d3bd:1060::/64'
+set service router-advert interface bond0.1100 route 'fd74:f571:d3bd:1061::/64'
+set service router-advert interface bond0.1100 route 'fd74:f571:d3bd:20::/64'
 
 # MLD queries keep the ICX's passive IPv6 snooping memberships refreshed.
 set protocols pim6 interface bond0.1100 mld version '2'
